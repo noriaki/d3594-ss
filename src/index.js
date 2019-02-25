@@ -15,10 +15,7 @@ const handler = async (req, res) => {
     const file = await getScreenshot(url, fileType, isDev);
     res.statusCode = 200;
     res.setHeader('Content-Type', mimeType);
-    res.setHeader(
-      'Cache-Control',
-      `public, immutable, no-transform, max-age=31536000`
-    );
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.end(file);
   } catch (e) {
     res.statusCode = 500;
