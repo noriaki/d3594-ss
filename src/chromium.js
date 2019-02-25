@@ -16,8 +16,8 @@ const getPage = async (isDev) => {
 const getScreenshot = async (url, type, isDev) => {
   const page = await getPage(isDev);
   await page.setViewport({ width: 1200, height: 628 });
-  console.log(`fetch ss: ${url}`);
-  await page.goto(url);
+  console.log(`fetch SS... ${url}`);
+  await page.goto(url, { waitUntil: 'networkidle' });
   const file = await page.screenshot({ type });
   return file;
 };
