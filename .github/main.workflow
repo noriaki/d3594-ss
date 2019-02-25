@@ -1,6 +1,10 @@
 workflow "Deploy on Now" {
   on = "pull_request"
-  resolves = ["deploy"]
+  resolves = [
+    "deploy",
+    "hmarr/debug-action",
+    "actions/bin/debug@master",
+  ]
 }
 
 action "Only opened, synchronize" {
@@ -15,4 +19,12 @@ action "deploy" {
   env = {
     NODE_ENV = "staging"
   }
+}
+
+action "hmarr/debug-action" {
+  uses = "hmarr/debug-action@master"
+}
+
+action "actions/bin/debug@master" {
+  uses = "actions/bin/debug@master"
 }
