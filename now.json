@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "d3594-ss",
+  "builds": [
+    { "src": "src/index.js", "use": "@now/node@canary" }
+  ],
+  "routes": [
+    { "src": "/(.+)", "dest": "/src/index.js" }
+  ]
+}
