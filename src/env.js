@@ -1,6 +1,6 @@
 const origins = {
   development: 'http://localhost:3000',
-  staging: 'https://deck-stg.d3594.com',
+  staging: 'https://games-d3594-deck-stg.herokuapp.com',
   production: 'https://deck.d3594.com',
 };
 
