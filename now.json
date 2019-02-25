@@ -4,9 +4,11 @@
   "regions": ["all"],
   "public": true,
   "builds": [
+    { "src": "public/*", "use": "@now/static" },
     { "src": "src/index.js", "use": "@now/node@canary" }
   ],
   "routes": [
+    { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
     { "src": "/(.+)", "dest": "/src/index.js" }
   ]
 }
