@@ -18,10 +18,13 @@ const getScreenshot = async (url, type, isDev) => {
   await page.setViewport({ width: 1200, height: 628 });
   console.log(`fetch SS... ${url}`);
   await page.goto(url, { waitUntil: 'networkidle0' });
+  /*
   await page.waitFor(() => (
     document.documentElement.className
       && document.documentElement.className.split(' ').includes('wf-active')
   ));
+   */
+  await page.waitFor(2000); // wait 2 [sec]
   const file = await page.screenshot({ type });
   return file;
 };
