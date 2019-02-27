@@ -15,7 +15,7 @@
   },
   "scripts": {},
   "devDependencies": {
-    "now": "^14.0.0"
+    "now": "^14.0.1"
   },
   "dependencies": {
     "chrome-aws-lambda": "^1.12.0",
