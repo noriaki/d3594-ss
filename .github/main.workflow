@@ -15,7 +15,7 @@ action "deploy-staging" {
   uses = "actions/zeit-now@666edee2f3632660e9829cb6801ee5b7d47b303d"
   needs = ["only opened, synchronize"]
   secrets = ["ZEIT_TOKEN"]
-  args = "deploy --env NODE_ENV=staging --public --no-clipboard > $HOME/$GITHUB_ACTION.txt"
+  args = "deploy --local-config=./now.json --env NODE_ENV=staging --public --no-clipboard > $HOME/$GITHUB_ACTION.txt"
 }
 
 action "actions/bin/debug@master" {
@@ -43,7 +43,7 @@ action "deploy" {
   uses = "actions/zeit-now@666edee2f3632660e9829cb6801ee5b7d47b303d"
   needs = ["Filters for GitHub Actions"]
   secrets = ["ZEIT_TOKEN"]
-  args = "deploy --env NODE_ENV=production --public --no-clipboard > $HOME/$GITHUB_ACTION.txt"
+  args = "deploy --local-config=./now.json --env NODE_ENV=production --public --no-clipboard > $HOME/$GITHUB_ACTION.txt"
 }
 
 action "release" {
