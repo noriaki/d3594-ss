@@ -3,6 +3,7 @@
   "name": "d3594-ss",
   "regions": ["all"],
   "public": true,
+  "alias": ["d3594-ss"],
   "builds": [
     { "src": "public/*", "use": "@now/static" },
     { "src": "src/index.js", "use": "@now/node@canary", "config": { "maxLambdaSize": "40mb" } }
