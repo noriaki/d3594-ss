@@ -15,7 +15,9 @@ const s3origins = {
 
 const getS3Options = (isDev) => {
   if (isDev) {
-    return JSON.parse(readFileSync(resolvePath('../.aws-s3-creds.json')));
+    return JSON.parse(readFileSync(
+      resolvePath(__dirname, '../.aws-s3-creds.json')
+    ));
   }
   const {
     AWS_ACCESS_KEY_ID: accessKeyId,
