@@ -14,10 +14,13 @@ const getPage = async (isDev) => {
 };
 
 const getScreenshot = async (url, type, isDev) => {
+  const gotoOptions = {
+    waitUntil: isDev ? 'networkidle2' : 'networkidle0',
+  };
   const page = await getPage(isDev);
   await page.setViewport({ width: 1200, height: 628 });
   console.log(`fetch SS... ${url}`);
-  await page.goto(url, { waitUntil: 'networkidle0' });
+  await page.goto(url, gotoOptions);
   await page.waitForSelector('svg');
   const file = await page.screenshot({ type });
   return file;
