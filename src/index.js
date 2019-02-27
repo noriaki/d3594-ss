@@ -15,10 +15,15 @@ const handler = async (req, res) => {
     const url = `${origin}/f/${fileName}`;
     const file = await getScreenshot(url, fileType, isDev);
     const uri = await putScreenshot(file, parsedQuery, isDev).catch(throwErr);
+    res.writeHead(302, { Location: uri });
+    res.end('ok');
+
+    /*
     res.statusCode = 200;
     res.setHeader('Content-Type', mimeType);
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.end(file);
+    */
   } catch (e) {
     res.statusCode = 500;
     res.end(e.message);
