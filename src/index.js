@@ -1,19 +1,22 @@
 const { createServer } = require('http');
 const { parseReq } = require('./parser');
+const { getScreenshot } = require('./chromium');
+const { getEnv } = require('./env');
 
 const isDev = !process.env.NOW_REGION;
 
-const handler = (req, res) => {
+const handler = async (req, res) => {
   try {
     const { versions } = process;
     const parsedQuery = parseReq(req);
-
-    res.end(`Hello from Node.js on Now 2.0!
-
-versions: ${JSON.stringify(versions, null, 2)}
-
-queries: ${JSON.stringify(parsedQuery, null, 2)}
-`);
+    const { fileName, fileType, mimeType } = parsedQuery;
+    const { origin } = getEnv(isDev);
+    const url = `${origin}/f/${fileName}`;
+    const file = await getScreenshot(url, fileType, isDev);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', mimeType);
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.end(file);
   } catch (e) {
     res.statusCode = 500;
     res.end(e.message);
