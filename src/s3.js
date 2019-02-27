@@ -1,6 +1,4 @@
 const s3 = require('s3');
-const { readFileSync } = require('fs');
-const { resolve: resolvePath } = require('path');
 
 const { getEnv } = require('./env');
 const { writeTempFile } = require('./file');
@@ -8,14 +6,11 @@ const { writeTempFile } = require('./file');
 const putScreenshot = (file, { fileName, mimeType }, isDev) => new Promise(
   async (resolve, reject) => {
     const filePath = await writeTempFile(fileName, file);
-    const s3Options = JSON.parse(
-      readFileSync(resolvePath('./.aws-s3-creds.json'))
-    );
+    const { s3Options, s3origin } = getEnv(isDev);
     const client = s3.createClient({ s3Options });
     const bucket = 'assets-deck.d3594.com';
     const dir = 'images/formations/';
     const objectKey = `${dir}${fileName}`;
-    const { s3origin } = getEnv(isDev);
     const uri = `${s3origin}/${objectKey}`;
 
     console.log(`Uploading file ${fileName} to bucket: ${bucket}`);
