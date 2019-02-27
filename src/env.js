@@ -20,9 +20,9 @@ const getS3Options = (isDev) => {
     ));
   }
   const {
-    AWS_ACCESS_KEY_ID: accessKeyId,
-    AWS_SECRET_ACCESS_KEY: secretAccessKey,
-    AWS_S3_REGION: region,
+    D3594_SS_AWS_ACCESS_KEY_ID: accessKeyId,
+    D3594_SS_AWS_SECRET_ACCESS_KEY: secretAccessKey,
+    D3594_SS_AWS_S3_REGION: region,
   } = process.env;
   return { accessKeyId, secretAccessKey, region };
 };
