@@ -62,3 +62,9 @@ typings/
 
 # creds
 .aws-s3-creds.json
+
+# github
+/.github/
+
+# others
+LICENSE

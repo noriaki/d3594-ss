@@ -19,7 +19,7 @@ const getScreenshot = async (url, type, isDev) => {
   };
   const page = await getPage(isDev);
   await page.setViewport({ width: 1200, height: 628 });
-  console.log(`fetch SS... ${url}`);
+  console.log(`Fetch and Shoot SS... ${url}`);
   const response = await page.goto(url, gotoOptions);
   if (!response.ok()) {
     throw new Error(

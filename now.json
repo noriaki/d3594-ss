@@ -11,5 +11,10 @@
   "routes": [
     { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
     { "src": "/(.+)", "dest": "/src/index.js" }
-  ]
+  ],
+  "env": {
+    "D3594_SS_AWS_ACCESS_KEY_ID": "@d3594-ss-access-key-id",
+    "D3594_SS_AWS_SECRET_ACCESS_KEY": "@d3594-ss-secret-access-key",
+    "D3594_SS_AWS_S3_REGION": "ap-northeast-1"
+  }
 }
