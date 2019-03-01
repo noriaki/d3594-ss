@@ -1,7 +1,7 @@
 const { createServer } = require('http');
 const { parseReq } = require('./parser');
 const { getScreenshot } = require('./chromium');
-const { putScreenshot } = require('./s3');
+const { existsScrennshot, putScreenshot } = require('./s3');
 const { getEnv } = require('./env');
 
 const isDev = !process.env.NOW_REGION;
@@ -11,11 +11,15 @@ const handler = async (req, res) => {
     const { versions } = process;
     const parsedQuery = parseReq(req);
     const { fileName, fileType, mimeType } = parsedQuery;
-    const { origin } = getEnv(isDev);
-    const url = `${origin}/f/${fileName}`;
-    const file = await getScreenshot(url, fileType, isDev);
-    const uri = await putScreenshot(file, parsedQuery, isDev).catch(throwErr);
-    res.writeHead(302, { Location: uri });
+    let ssUri = await existsScrennshot(fileName, isDev);
+    if (ssUri === null) {
+      const { origin: sourceOrigin } = getEnv(isDev);
+      const sourceUri = `${sourceOrigin}/f/${fileName}`;
+      const file = await getScreenshot(sourceUri, fileType, isDev);
+      ssUri = await putScreenshot(file, parsedQuery, isDev);
+    }
+    console.log(`Redirect to ${ssUri}`);
+    res.writeHead(302, { Location: ssUri });
     res.end('ok');
   } catch (e) {
     res.statusCode = 500;
@@ -31,5 +35,3 @@ if (isDev) {
   const listen = () => console.log(`Listening on ${PORT}...`);
   createServer(handler).listen(PORT, listen);
 }
-
-const throwErr = (err) => { throw err; };
